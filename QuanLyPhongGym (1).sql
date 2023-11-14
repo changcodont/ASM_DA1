@@ -78,19 +78,6 @@ VALUES ('GT004', N'Gói Ngày', 30000, 1, N'Gói tập trong một ngày');
 
 
 create table DonHang(
-	MaDH nvarchar(10) primary key not null,
-	MaNV nvarchar(10) not null,
-	MaKH nvarchar(10) null,
-	NgayTao date not null,
-	TrangThai bit not null,
-	TongTien float not null,
-	TienNhan float not null,
-	TienThua float not null,
-	foreign key (MaNV) references NhanVien(MaNV),
-	foreign key (MaKH) references KhachHang(MaKH)
-)
-
-create table DonHang(
 	MaDH INT IDENTITY(1,1) PRIMARY KEY,
 	MaNV nvarchar(10) not null,
 	MaKH nvarchar(10) null,
@@ -103,24 +90,25 @@ create table DonHang(
 	foreign key (MaKH) references KhachHang(MaKH)
 )
 
-drop table DonHang
 
 set identity_insert DonHang on
 
 create table ChiTietGoiTap(
-	MaCTGT nvarchar(10) primary key not null,
+	MaCTGT int identity(1,1) primary key not null,
 	MaKH nvarchar(10) not null,
 	MaGT nvarchar(10) not null,
-	MaDH nvarchar(10) not null,
+	MaDH int not null,
 	NgayDK date not null,
 	NgayKT date not null,
+	SoLuong int not null,
 	Gia float not null,
 	foreign key(MaKH) references KhachHang(MaKH),
 	foreign key(MaGT) references GoiTap(MaGT),
 	foreign key(MaDH) references DonHang(MaDH)
 )
 
-drop table ChiTietGoiTap
+set identity_insert ChiTietGoiTap on
+
 
 create table ThuePT(
 	MaThue nvarchar(10) primary key not null,
@@ -169,7 +157,6 @@ create table ChiTietDonHang(
 	foreign key (MaDH) references DonHang(MaDH)
 )
 
-drop table ChiTietDonHang
 
 create table MayMoc(
 	MaMay nvarchar(10) primary key not null,
